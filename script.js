@@ -1,4 +1,4 @@
-const targetDate = new Date('November 30, 2025 00:00:00 GMT+3');
+const targetDate = new Date('November 28, 2025 18:00:00 GMT+3');
 const daysElement = document.getElementById('days');
 const hoursElement = document.getElementById('hours');
 const minutesElement = document.getElementById('minutes');
@@ -22,7 +22,7 @@ function updateTimer() {
         minutesElement.textContent = '';
         secondsElement.textContent = '';
         // Assuming we hide the timer or show a message, replace the content
-        document.getElementById('timer').innerHTML = '<span class="final-msg">Дата выхода игры: 30 ноября 2025</span>';
+        document.getElementById('timer').innerHTML = '<span class="final-msg">Дата выхода игры: 28 ноября 2025</span>';
         document.querySelector('.final-msg').style.animation = 'celebrate 2s infinite';
     }
 }
