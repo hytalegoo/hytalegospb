@@ -1,34 +1,103 @@
-const targetDate = new Date('November 28, 2025 18:00:00 GMT+3');
-const daysElement = document.getElementById('days');
-const hoursElement = document.getElementById('hours');
-const minutesElement = document.getElementById('minutes');
-const secondsElement = document.getElementById('seconds');
+// Первый таймер: до старта предзаказа
+const preorderDate = new Date('December 13, 2025 00:00:00 GMT+3');
+const preorderDaysElement = document.getElementById('preorder-days');
+const preorderHoursElement = document.getElementById('preorder-hours');
+const preorderMinutesElement = document.getElementById('preorder-minutes');
+const preorderSecondsElement = document.getElementById('preorder-seconds');
 
-function updateTimer() {
+// Второй таймер: до выхода игры
+const releaseDate = new Date('January 13, 2026 00:00:00 GMT+3');
+const releaseDaysElement = document.getElementById('release-days');
+const releaseHoursElement = document.getElementById('release-hours');
+const releaseMinutesElement = document.getElementById('release-minutes');
+const releaseSecondsElement = document.getElementById('release-seconds');
+
+function updatePreorderTimer() {
     const now = new Date();
-    const timeDifference = targetDate - now;
+    const timeDifference = preorderDate - now;
     if (timeDifference > 0) {
         const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-        daysElement.textContent = days;
-        hoursElement.textContent = hours;
-        minutesElement.textContent = minutes;
-        secondsElement.textContent = seconds;
+
+        // Синхронизированная анимация: добавить flip ко всем span
+        preorderDaysElement.classList.add('flip');
+        preorderHoursElement.classList.add('flip');
+        preorderMinutesElement.classList.add('flip');
+        preorderSecondsElement.classList.add('flip');
+
+        // Обновить текст в середине анимации (250ms)
+        setTimeout(() => {
+            preorderDaysElement.textContent = days;
+            preorderHoursElement.textContent = hours;
+            preorderMinutesElement.textContent = minutes;
+            preorderSecondsElement.textContent = seconds;
+        }, 250);
+
+        // Убрать класс через 500ms
+        setTimeout(() => {
+            preorderDaysElement.classList.remove('flip');
+            preorderHoursElement.classList.remove('flip');
+            preorderMinutesElement.classList.remove('flip');
+            preorderSecondsElement.classList.remove('flip');
+        }, 500);
     } else {
-        daysElement.textContent = '';
-        hoursElement.textContent = '';
-        minutesElement.textContent = '';
-        secondsElement.textContent = '';
-        // Assuming we hide the timer or show a message, replace the content
-        document.getElementById('timer').innerHTML = '<span class="final-msg">Дата выхода игры: 28 ноября 2025</span>';
+        preorderDaysElement.textContent = '0';
+        preorderHoursElement.textContent = '0';
+        preorderMinutesElement.textContent = '0';
+        preorderSecondsElement.textContent = '0';
+        document.getElementById('preorder-timer').innerHTML = '<span class="final-msg">Предзаказ стартовал!</span>';
         document.querySelector('.final-msg').style.animation = 'celebrate 2s infinite';
     }
 }
 
-setInterval(updateTimer, 1000);
-updateTimer(); // Initial call to set the timer immediately
+function updateReleaseTimer() {
+    const now = new Date();
+    const timeDifference = releaseDate - now;
+    if (timeDifference > 0) {
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        // Синхронизированная анимация: добавить flip ко всем span
+        releaseDaysElement.classList.add('flip');
+        releaseHoursElement.classList.add('flip');
+        releaseMinutesElement.classList.add('flip');
+        releaseSecondsElement.classList.add('flip');
+
+        // Обновить текст в середине анимации (250ms)
+        setTimeout(() => {
+            releaseDaysElement.textContent = days;
+            releaseHoursElement.textContent = hours;
+            releaseMinutesElement.textContent = minutes;
+            releaseSecondsElement.textContent = seconds;
+        }, 250);
+
+        // Убрать класс через 500ms
+        setTimeout(() => {
+            releaseDaysElement.classList.remove('flip');
+            releaseHoursElement.classList.remove('flip');
+            releaseMinutesElement.classList.remove('flip');
+            releaseSecondsElement.classList.remove('flip');
+        }, 500);
+    } else {
+        releaseDaysElement.textContent = '0';
+        releaseHoursElement.textContent = '0';
+        releaseMinutesElement.textContent = '0';
+        releaseSecondsElement.textContent = '0';
+        document.getElementById('release-timer').innerHTML = '<span class="final-msg">Игра вышла!</span>';
+        document.querySelector('.final-msg').style.animation = 'celebrate 2s infinite';
+    }
+}
+
+setInterval(updatePreorderTimer, 1000);
+setInterval(updateReleaseTimer, 1000);
+updatePreorderTimer(); // Initial call
+updateReleaseTimer(); // Initial call
+
+
 
 
 
