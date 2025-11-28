@@ -226,30 +226,30 @@ document.querySelector('.modding-special').addEventListener('click', () => {
     }, 500);
 });
 
-// Popup при движении мыши к выходу со страницы
-let popupShown = false;
-const popup = document.getElementById('discord-popup');
+// Release popup при загрузке страницы
+const releasePopup = document.getElementById('release-popup');
 
-document.addEventListener('mouseleave', () => {
-    if (popupShown) return;
-    document.getElementById('discord-popup').style.display = 'block';
-    popupShown = true;
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        releasePopup.style.display = 'block';
+    }, 1000); // Показать через 1 секунду после загрузки
 });
 
-// Функция закрытия popup с анимацией
-function closePopup() {
-    popup.classList.add('closing');
+// Закрытие release popup
+const releaseCloseBtn = releasePopup.querySelector('.popup-close');
+
+function closeReleasePopup() {
+    releasePopup.classList.add('closing');
     setTimeout(() => {
-        popup.style.display = 'none';
-        popup.classList.remove('closing');
+        releasePopup.style.display = 'none';
+        releasePopup.classList.remove('closing');
     }, 600);
 }
 
-// Закрытие popup при клике на фон или кнопку закрытия
-document.getElementById('discord-popup').addEventListener('click', (e) => {
-    if (e.target === document.getElementById('discord-popup')) {
-        closePopup();
+releasePopup.addEventListener('click', (e) => {
+    if (e.target === releasePopup) {
+        closeReleasePopup();
     }
 });
 
-document.querySelector('.popup-close').addEventListener('click', closePopup);
+releaseCloseBtn.addEventListener('click', closeReleasePopup);

@@ -430,6 +430,30 @@ footer{
     50%{transform:scale(1.1); color:#00d4ff;}
 }
 
+/* ────────────────────────── RELEASE POPUP ───────────────────── */
+.popup-logo {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 16px 16px 0 0;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+#release-popup .popup-header {
+    padding: 1rem 2rem 0;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+
+#release-popup .popup-body {
+    text-align: center;
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    padding: 1.5rem 2rem;
+}
+
 /* ────────────────────────── DISCORD POPUP ───────────────────── */
 .popup-modal {
     display: none;
