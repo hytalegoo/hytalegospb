@@ -19,17 +19,7 @@ body{
 }
 
 /* ────────────────────────── SIDE DECORATIONS (left/right) ─────── */
-body::before,
-body::after{
-    content:"";
-    position:fixed;
-    top:0;height:100%;
-    width:70px; /* ширина полосы */
-    background:url('img/side-decoration.png') center/cover no-repeat;
-    z-index:-1;
-}
-body::before{left:0;}
-body::after{right:0;transform:scaleX(-1);}
+/* Файл img/side-decoration.png отсутствует, декорации отключены */
 
 /* ────────────────────────── HEADER ───────────────────────────── */
 .header{

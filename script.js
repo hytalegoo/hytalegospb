@@ -230,31 +230,32 @@ document.querySelector('.modding-special').addEventListener('click', () => {
 const releasePopup = document.getElementById('release-popup');
 console.log('releasePopup found:', !!releasePopup, releasePopup);
 
-setTimeout(() => {
-    console.log('Attempting to show popup');
-    if (releasePopup) {
-        console.log('Setting display to block');
-        releasePopup.style.display = 'block';
-    } else {
-        console.log('releasePopup is null, element not found');
-    }
-}, 1000); // Показать через 1 секунду
-
-// Закрытие release popup
-const releaseCloseBtn = releasePopup.querySelector('.popup-close');
-
-function closeReleasePopup() {
-    releasePopup.classList.add('closing');
+if (releasePopup) {
     setTimeout(() => {
-        releasePopup.style.display = 'none';
-        releasePopup.classList.remove('closing');
-    }, 600);
-}
+        console.log('Attempting to show popup');
+        releasePopup.style.display = 'block';
+    }, 1000); // Показать через 1 секунду
 
-releasePopup.addEventListener('click', (e) => {
-    if (e.target === releasePopup) {
-        closeReleasePopup();
+    // Закрытие release popup
+    const releaseCloseBtn = releasePopup.querySelector('.popup-close');
+
+    function closeReleasePopup() {
+        releasePopup.classList.add('closing');
+        setTimeout(() => {
+            releasePopup.style.display = 'none';
+            releasePopup.classList.remove('closing');
+        }, 600);
     }
-});
 
-releaseCloseBtn.addEventListener('click', closeReleasePopup);
+    releasePopup.addEventListener('click', (e) => {
+        if (e.target === releasePopup) {
+            closeReleasePopup();
+        }
+    });
+
+    if (releaseCloseBtn) {
+        releaseCloseBtn.addEventListener('click', closeReleasePopup);
+    }
+} else {
+    console.log('Release popup element not found, skipping popup functionality');
+}
