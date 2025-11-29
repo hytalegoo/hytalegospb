@@ -74,7 +74,7 @@
 
 ## 📞 Связь
 
-Присоединяйтесь к сообществу: [Discord](https://discord.gg/J68Yjgjf)
+Присоединяйтесь к сообществу: [Discord](https://discord.gg/WdNEmy2DGM)
 
 Посмотрите код на [GitHub](https://github.com/hytalego/hytalegospb)
 
