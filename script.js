@@ -1,56 +1,9 @@
-// Первый таймер: до старта предзаказа
-const preorderDate = new Date(2025, 11, 13, 18, 0, 0); // December 13, 2025, 18:00:00
-const preorderDaysElement = document.getElementById('preorder-days');
-const preorderHoursElement = document.getElementById('preorder-hours');
-const preorderMinutesElement = document.getElementById('preorder-minutes');
-const preorderSecondsElement = document.getElementById('preorder-seconds');
-
-// Второй таймер: до выхода игры
+// Таймер: до выхода игры
 const releaseDate = new Date(2026, 0, 13, 18, 0, 0); // January 13, 2026, 18:00:00
 const releaseDaysElement = document.getElementById('release-days');
 const releaseHoursElement = document.getElementById('release-hours');
 const releaseMinutesElement = document.getElementById('release-minutes');
 const releaseSecondsElement = document.getElementById('release-seconds');
-
-function updatePreorderTimer() {
-    const now = new Date();
-    const timeDifference = preorderDate - now;
-    if (timeDifference > 0) {
-        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-        // Синхронизированная анимация: добавить flip ко всем span
-        preorderDaysElement.classList.add('flip');
-        preorderHoursElement.classList.add('flip');
-        preorderMinutesElement.classList.add('flip');
-        preorderSecondsElement.classList.add('flip');
-
-        // Обновить текст в середине анимации (250ms)
-        setTimeout(() => {
-            preorderDaysElement.textContent = days;
-            preorderHoursElement.textContent = hours;
-            preorderMinutesElement.textContent = minutes;
-            preorderSecondsElement.textContent = seconds;
-        }, 250);
-
-        // Убрать класс через 500ms
-        setTimeout(() => {
-            preorderDaysElement.classList.remove('flip');
-            preorderHoursElement.classList.remove('flip');
-            preorderMinutesElement.classList.remove('flip');
-            preorderSecondsElement.classList.remove('flip');
-        }, 500);
-    } else {
-        preorderDaysElement.textContent = '0';
-        preorderHoursElement.textContent = '0';
-        preorderMinutesElement.textContent = '0';
-        preorderSecondsElement.textContent = '0';
-        document.getElementById('preorder-timer').innerHTML = '<span class="final-msg">Предзаказ стартовал!</span>';
-        document.querySelector('.final-msg').style.animation = 'celebrate 2s infinite';
-    }
-}
 
 function updateReleaseTimer() {
     const now = new Date();
@@ -61,11 +14,17 @@ function updateReleaseTimer() {
         const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
 
-        // Синхронизированная анимация: добавить flip ко всем span
-        releaseDaysElement.classList.add('flip');
-        releaseHoursElement.classList.add('flip');
-        releaseMinutesElement.classList.add('flip');
-        releaseSecondsElement.classList.add('flip');
+        // Проверить, какие числа изменились
+        const oldDays = parseInt(releaseDaysElement.textContent) || 0;
+        const oldHours = parseInt(releaseHoursElement.textContent) || 0;
+        const oldMinutes = parseInt(releaseMinutesElement.textContent) || 0;
+        const oldSeconds = parseInt(releaseSecondsElement.textContent) || 0;
+
+        // Добавить анимацию только к изменившимся
+        if (days !== oldDays) releaseDaysElement.classList.add('flip');
+        if (hours !== oldHours) releaseHoursElement.classList.add('flip');
+        if (minutes !== oldMinutes) releaseMinutesElement.classList.add('flip');
+        if (seconds !== oldSeconds) releaseSecondsElement.classList.add('flip');
 
         // Обновить текст в середине анимации (250ms)
         setTimeout(() => {
@@ -92,9 +51,7 @@ function updateReleaseTimer() {
     }
 }
 
-setInterval(updatePreorderTimer, 1000);
 setInterval(updateReleaseTimer, 1000);
-updatePreorderTimer(); // Initial call
 updateReleaseTimer(); // Initial call
 
 
