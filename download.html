@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(45, 45, 45, 0.8) 100%), url('img/d_fon.jpg') center/cover no-repeat fixed;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -26,12 +26,27 @@
             border: 1px solid rgba(100, 100, 100, 0.3);
             max-width: 600px;
             width: 100%;
-            animation: fadeInUp 1s ease;
         }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
+        @keyframes anim1 { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        @keyframes anim2 { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes anim3 { from { opacity: 0; transform: rotate(-10deg) scale(0.8); } to { opacity: 1; transform: rotate(0deg) scale(1); } }
+        @keyframes anim4 { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes anim5 { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes anim6 { from { opacity: 0; transform: scale(1.2); } to { opacity: 1; transform: scale(1); } }
+        @keyframes anim7 { from { opacity: 0; transform: rotate(10deg); } to { opacity: 1; transform: rotate(0deg); } }
+        @keyframes anim8 { from { opacity: 0; transform: translateY(-50px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes anim9 { from { opacity: 0; transform: skew(-10deg); } to { opacity: 1; transform: skew(0deg); } }
+        @keyframes anim10 { from { opacity: 0; transform: scale(0.7) rotate(180deg); } to { opacity: 1; transform: scale(1) rotate(0deg); } }
+        @keyframes anim11 { from { opacity: 0; transform: translateX(100px) scale(0.8); } to { opacity: 1; transform: translateX(0) scale(1); } }
+        @keyframes anim12 { from { opacity: 0; transform: translateY(100px) rotate(-5deg); } to { opacity: 1; transform: translateY(0) rotate(0deg); } }
+        @keyframes anim13 { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        @keyframes anim14 { from { opacity: 0; transform: translateX(-100px) skew(5deg); } to { opacity: 1; transform: translateX(0) skew(0deg); } }
+        @keyframes anim15 { from { opacity: 0; transform: rotate(20deg) scale(0.9); } to { opacity: 1; transform: rotate(0deg) scale(1); } }
+        @keyframes anim16 { from { opacity: 0; transform: translateY(-100px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes anim17 { from { opacity: 0; transform: scale(1.3) rotate(-15deg); } to { opacity: 1; transform: scale(1) rotate(0deg); } }
+        @keyframes anim18 { from { opacity: 0; transform: translateX(75px) translateY(25px); } to { opacity: 1; transform: translateX(0) translateY(0); } }
+        @keyframes anim19 { from { opacity: 0; transform: rotate(-25deg); } to { opacity: 1; transform: rotate(0deg); } }
+        @keyframes anim20 { from { opacity: 0; transform: scale(0.6) translateY(30px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         .download-icon {
             font-size: 4rem;
             color: #ffd700;
@@ -55,19 +70,30 @@
             opacity: 0.9;
         }
         .instruction {
+            margin-bottom: 1rem;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
+            padding: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
+        .instruction * {
+            margin: 0;
+        }
         .instruction h2 {
-            margin-bottom: 1rem;
-            color: #ffd700;
+            color: #ff6b6b;
+            margin-bottom: 0.5rem;
+        }
+        .instruction ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+            margin: 0;
         }
         .instruction p {
-            font-size: 1rem;
+            margin-bottom: 0.2rem;
+            font-size: 0.7rem;
             color: #fff;
+            font-weight: bold;
+            text-align: left;
         }
         .dots {
             display: inline-block;
@@ -84,11 +110,13 @@
         .captcha p {
             margin-bottom: 0.5rem;
             font-weight: bold;
+            color: #ff6b6b;
         }
         .timer {
             font-size: 1rem;
             background: linear-gradient(45deg, #ffd700, #ff6b6b);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-top: 1rem;
             animation: timerPulse 2s infinite, timerGlow 3s ease-in-out infinite alternate;
@@ -148,9 +176,11 @@
         <div class="download-icon">⬇️</div>
         <h1>Скачать лаунчер</h1>
         <p>Ура! Приключения начинаются! Готовьтесь к скачиванию легендарного лаунчера Hytale!</p>
-        <div class="instruction">
+        <div class="instruction" style="margin-top: -1rem;">
             <h2>Инструкция по установке</h2>
-            <p>Инструкция пишется<span class="dots">.</span></p>
+            <p>1. Распаковать в любую папку (путь не должен иметь русский язык)</p>
+            <p>2. Запустить HytaleLauncherX.exe</p>
+            <p>3. Наслаждаться</p>
         </div>
         <div class="captcha">
             <p>Решите капчу: 5 + 3 = ?</p>
@@ -160,6 +190,9 @@
             <a href="https://hytalego.github.io/hytalegospb/file/l.zip" class="download-btn" id="download-btn">Скачать лаунчер</a>
     </div>
     <script>
+        // Анимация появления
+        document.querySelector('.download-container').style.animation = 'anim1 1s ease';
+
         const captchaInput = document.getElementById('captcha-input');
         const downloadBtn = document.getElementById('download-btn');
         const captchaText = document.querySelector('.captcha p');
