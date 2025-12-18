@@ -135,7 +135,21 @@ checkDirect();
 // Обработчики для скачивания
 downloadLauncherBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    alert('Файл лаунчера скачивается...');
+    // Проверяем наличие файла
+    fetch('/file/l.zip', { method: 'HEAD' })
+        .then(response => {
+            if (response.ok) {
+                // Файл найден, скачиваем
+                window.location.href = '/file/l.zip';
+            } else {
+                // Файл не найден, перенаправляем на страницу ошибки
+                window.location.href = 'error.html';
+            }
+        })
+        .catch(error => {
+            // Ошибка запроса, тоже на страницу ошибки
+            window.location.href = 'error.html';
+        });
 });
 
 document.getElementById('direct-form').addEventListener('submit', (e) => {
