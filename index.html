@@ -7,27 +7,50 @@
     <style>
         /* Таймер */
         .timer {
-            position: fixed;
-            top: 16px;
-            left: 180px;
-            z-index: 1000;
             height: 60px;
-            width: 450px;
+            width: 400px;
             font-size: 16px;
             font-weight: bold;
             color: #ffffff;
-            padding: 8px 10px;
-            border-radius: 6px;
+            padding: 8px 12px;
+            border-radius: 8px;
             text-align: center;
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid #fff;
-            box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.3);
+            background: linear-gradient(45deg, rgba(20, 20, 40, 0.95), rgba(40, 40, 60, 0.95));
+            border: 2px solid #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4), inset 0 0 8px rgba(0, 0, 0, 0.3);
             font-family: 'Courier New', monospace;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            margin-left: 20px;
         }
+        .timer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('img/sr/001.jpg') center/cover no-repeat;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        .timer .block-decoration {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(45deg, #8B4513, #A0522D);
+            border: 1px solid #654321;
+            border-radius: 2px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .timer .block1 { top: 5px; left: 10px; }
+        .timer .block2 { top: 5px; right: 10px; }
+        .timer .block3 { bottom: 5px; left: 10px; }
+        .timer .block4 { bottom: 5px; right: 10px; }
 
         .timer span {
             display: inline-block;
@@ -39,9 +62,7 @@
 
         /* Второй таймер */
         .release-timer {
-            background-color: blue;
-            border: 2px solid #ff0000;
-            animation: changeColor 1s infinite alternate;
+            /* No animation */
         }
 
         /* Анимация для чисел в таймерах */
@@ -112,13 +133,6 @@
     </style>
 </head>
 <body>
-    <div id="release-timer" class="timer release-timer">
-        <div>До выхода игры осталось:</div>
-        <div><span id="release-days"></span>д <span id="release-hours"></span>ч <span id="release-minutes"></span>м <span id="release-seconds"></span>с</div>
-    </div>
-
-
-
     <header class="header">
         <div class="logo"><img src="img/logo.png" alt="Hytale Logo"></div>
         <nav>
@@ -131,6 +145,10 @@
 
             </ul>
         </nav>
+        <div id="release-timer" class="timer release-timer">
+            <div>До выхода игры осталось:</div>
+            <div><span id="release-days"></span>д <span id="release-hours"></span>ч <span id="release-minutes"></span>м <span id="release-seconds"></span>с</div>
+        </div>
     </header>
 
     <section id="home" class="hero">
@@ -404,44 +422,8 @@
 
 
 
-    <!-- Popup Modal for Release -->
-    <div id="release-popup" class="popup-modal">
-        <div class="popup-container">
-            <button class="popup-close">×</button>
-            <div class="popup-header">
-                <img src="img/start.jpg" alt="Epic Logo" class="popup-logo">
-            </div>
-            <div class="popup-body">
-                <p>🚀 ЭПИЧЕСКИЙ РЕЛИЗ НЕЗАБЛУДИМ! 🚀</p>
-                <p>Великая игра Hytale вот-вот ворвется в ваш мир! Скоро, 13 декабря 2025 года, откроется предзаказ – не упустите шанс стать одним из первых героев. Следите за каждым обновлением на нашем сайте – только здесь вы получите эксклюзивный доступ к скачиванию и премиум контенту!</p>
-                <p><strong>Дата релиза: 13 января 2026 года!</strong></p>
-                <p><strong>Что вас ждет:</strong></p>
-                <ul>
-                    <li>🎮 Революционная система блоков и модинга</li>
-                    <li>⚔️ Эпические сражения и квесты</li>
-                    <li>🌍 Открытый мир с бесконечными возможностями</li>
-                </ul>
-                <p>Будьте готовы к легендарному приключению! Ваше место в истории Hytale ждет вас прямо сейчас!</p>
-            </div>
-        </div>
-    </div>
 
     <div id="snow-container"></div>
-    <div id="fireworks-container"></div>
-    <div id="christmas-tree">
-        <div class="star">★</div>
-        <div class="branch b1"></div>
-        <div class="branch b2"></div>
-        <div class="branch b3"></div>
-        <div class="branch b4"></div>
-        <div class="tree-trunk"></div>
-        <div class="garland g1"></div>
-        <div class="garland g2"></div>
-        <div class="garland g3"></div>
-        <div class="garland g4"></div>
-        <div class="garland g5"></div>
-        <div class="garland g6"></div>
-    </div>
     <script src="script.js"></script>
 </body>
 </html>

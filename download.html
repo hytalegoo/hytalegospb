@@ -71,29 +71,45 @@
         }
         .instruction {
             margin-bottom: 1rem;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
-        .instruction * {
-            margin: 0;
+        .instruction summary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-align: left;
+            list-style: none;
+            position: relative;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
         }
-        .instruction h2 {
-            color: #ff6b6b;
-            margin-bottom: 0.5rem;
+        .instruction summary::marker {
+            display: none;
         }
-        .instruction ul {
-            list-style: disc;
-            padding-left: 1.5rem;
-            margin: 0;
+
+        .instruction summary:hover {
+            background: linear-gradient(45deg, #2980b9, #3498db);
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+        }
+        .instruction div {
+            background: rgba(0, 0, 0, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 0;
+            overflow: hidden;
         }
         .instruction p {
-            margin-bottom: 0.2rem;
-            font-size: 0.7rem;
-            color: #fff;
-            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            font-weight: normal;
             text-align: left;
+            line-height: 1.4;
         }
         .dots {
             display: inline-block;
@@ -132,19 +148,29 @@
             to { filter: brightness(1.2) hue-rotate(10deg); }
         }
         .captcha-input {
-            padding: 0.75rem;
-            border-radius: 8px;
-            border: 2px solid #ddd;
-            background: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 3px solid #ddd;
+            background: linear-gradient(45deg, #ffffff, #f8f9fa);
             color: #333;
             text-align: center;
-            font-size: 1.1rem;
-            width: 120px;
-            transition: border-color 0.3s;
+            font-size: 1.3rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            width: 200px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            outline: none;
         }
         .captcha-input:focus {
             border-color: #ffd700;
-            outline: none;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), 0 4px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(45deg, #fff, #e9ecef);
+            transform: scale(1.02);
+        }
+        .captcha-input::placeholder {
+            color: #999;
+            font-weight: normal;
         }
         .download-btn {
             background: linear-gradient(45deg, #ff6b6b, #ffa500);
@@ -169,6 +195,95 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5);
         }
+        .captcha-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 1rem 0;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .captcha-block {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #333, #555);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            animation: blockPulse 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        .captcha-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes blockPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 6px 15px rgba(52, 152, 219, 0.3); }
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .captcha-block:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.5);
+        }
+        .captcha-block.correct {
+            animation: correctGlow 0.5s infinite alternate;
+        }
+        @keyframes correctGlow {
+            0% { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), 0 0 10px rgba(52, 152, 219, 0.5); }
+            100% { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(52, 152, 219, 1); }
+        }
+        .captcha-block[data-color="red"] { background: linear-gradient(45deg, #ff0000, #cc0000); }
+        .captcha-block[data-color="blue"] { background: linear-gradient(45deg, #0000ff, #0000cc); }
+        .captcha-block[data-color="green"] { background: linear-gradient(45deg, #00ff00, #00cc00); }
+        .captcha-block[data-color="yellow"] { background: linear-gradient(45deg, #ffff00, #cccc00); }
+        .captcha-block[data-color="purple"] { background: linear-gradient(45deg, #800080, #660066); }
+        .captcha-block[data-color="orange"] { background: linear-gradient(45deg, #ffa500, #cc8500); }
+        .captcha-block[data-color="cyan"] { background: linear-gradient(45deg, #00ffff, #00cccc); }
+        .captcha-block[data-color="pink"] { background: linear-gradient(45deg, #ff1493, #cc1166); }
+        .captcha-block.selected {
+            transform: scale(1.2);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.8);
+            border: 3px solid #fff;
+        }
+        .captcha-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffd700;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            animation: numberGlow 2s infinite alternate;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            font-family: 'Courier New', monospace;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            pointer-events: none;
+        }
+        @keyframes numberGlow {
+            from { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+            to { box-shadow: 0 0 20px rgba(255, 215, 0, 1); }
+        }
     </style>
 </head>
 <body>
@@ -176,62 +291,183 @@
         <div class="download-icon">⬇️</div>
         <h1>Скачать лаунчер</h1>
         <p>Ура! Приключения начинаются! Готовьтесь к скачиванию легендарного лаунчера Hytale!</p>
-        <div class="instruction" style="margin-top: -1rem;">
-            <h2>Инструкция по установке</h2>
+        <details class="instruction" style="margin-top: -1rem;">
+            <summary>Инструкция по установке (нажми чтобы раскрыть)</summary>
             <p>1. Распаковать в любую папку (путь не должен иметь русский язык)</p>
             <p>2. Запустить HytaleLauncherX.exe</p>
             <p>3. Наслаждаться</p>
-        </div>
+        </details>
         <div class="captcha">
-            <p>Решите капчу: 5 + 3 = ?</p>
-            <input type="text" class="captcha-input" id="captcha-input">
-            <p class="timer">Капча обновится через: 9 сек</p>
+            <p id="captcha-instruction">Эпическая капча: Запомни число и введи его!</p>
+            <div class="captcha-display" id="captcha-display">123-456-789</div>
+            <input type="text" class="captcha-input" id="captcha-input" placeholder="XXX-XXX-XXX">
+            <p class="timer">Число изменится через: 9 сек</p>
         </div>
-            <a href="https://hytalego.github.io/hytalegospb/file/l.zip" class="download-btn" id="download-btn">Скачать лаунчер</a>
+        <a href="https://hytalego.github.io/hytalegospb/file/l.zip" class="download-btn" id="download-btn">Скачать лаунчер</a>
     </div>
     <script>
         // Анимация появления
         document.querySelector('.download-container').style.animation = 'anim1 1s ease';
 
-        const captchaInput = document.getElementById('captcha-input');
         const downloadBtn = document.getElementById('download-btn');
-        const captchaText = document.querySelector('.captcha p');
+        const captchaDisplay = document.getElementById('captcha-display');
+        const captchaInput = document.getElementById('captcha-input');
         const timerText = document.querySelector('.timer');
 
-        let currentSum = 0;
-        let timer = 9;
+        let timer = 20;
+        let solved = false;
+        let currentNumber = '';
+        let audioContext;
+        let pulseInterval;
+        let lastBeatTime = 0;
 
-        function generateCaptcha() {
-            const num1 = Math.floor(Math.random() * 10) + 1;
-            const num2 = Math.floor(Math.random() * 10) + 1;
-            currentSum = num1 + num2;
-            captchaText.textContent = `Решите капчу: ${num1} + ${num2} = ?`;
+        function initAudio() {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        }
+        // Initialize audio on first interaction
+        document.addEventListener('click', () => {
+            if (!audioContext) {
+                initAudio();
+            } else if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+        }, { once: true });
+
+        function playBeep(frequency = 800, duration = 200) {
+            if (!audioContext) return;
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+            oscillator.type = 'sine';
+
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration / 1000);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + duration / 1000);
+        }
+
+        function generateNumber() {
+            // Generate 9-digit number
+            let num = '';
+            for (let i = 0; i < 9; i++) {
+                num += Math.floor(Math.random() * 10);
+            }
+            // Format as XXX-XXX-XXX
+            currentNumber = num.replace(/(\d{3})(\d{3})(\d{3})/, '$1-$2-$3');
+            captchaDisplay.textContent = currentNumber;
+            captchaDisplay.style.color = '#ffd700'; // Reset to yellow
+            captchaDisplay.style.animation = 'numberGlow 2s infinite alternate'; // Reset animation
             captchaInput.value = '';
+            solved = false;
             downloadBtn.classList.remove('enabled');
-            timer = 30;
+            timer = 20;
+            lastBeatTime = Date.now();
             updateTimer();
         }
 
         function updateTimer() {
-            timerText.textContent = `Капча обновится через: ${timer} сек`;
+            timerText.textContent = `Число изменится через: ${timer} сек`;
+
+            if (timer <= 10 && timer > 0 && !solved) {
+                startPulseSound();
+            } else {
+                stopPulseSound();
+            }
+
             if (timer > 0) {
                 timer--;
                 setTimeout(updateTimer, 1000);
             } else {
-                generateCaptcha();
+                stopPulseSound();
+                generateNumber();
             }
         }
 
-        // Инициализация
-        generateCaptcha();
+        function startPulseSound() {
+            if (pulseInterval) return; // Already running
 
+            const pulseStartTime = Date.now();
+            lastBeatTime = pulseStartTime;
+
+            pulseInterval = setInterval(() => {
+                const now = Date.now();
+                const totalElapsed = now - pulseStartTime; // Total time since pulse started
+
+                // Wait 1 second for first beat
+                if (totalElapsed < 1000) return;
+
+                const accelerationTime = totalElapsed - 1000; // Time after first second
+                const progress = Math.min(1, accelerationTime / 7000); // 0 to 1 over 7 seconds
+                const interval = 1000 - progress * 900; // From 1000ms to 100ms
+                const frequency = 600 + progress * 600; // From 600 to 1200 Hz
+
+                if (now - lastBeatTime >= interval) {
+                    playBeep(frequency, 150);
+                    lastBeatTime = now;
+                }
+            }, 10); // Check every 10ms for smooth timing
+        }
+
+        function stopPulseSound() {
+            if (pulseInterval) {
+                clearInterval(pulseInterval);
+                pulseInterval = null;
+            }
+        }
+
+        // Prevent copying and context menu on captcha display
+        captchaDisplay.addEventListener('contextmenu', (e) => e.preventDefault());
+        captchaDisplay.addEventListener('copy', (e) => e.preventDefault());
+        captchaDisplay.addEventListener('cut', (e) => e.preventDefault());
+        captchaDisplay.addEventListener('paste', (e) => e.preventDefault());
+        captchaDisplay.addEventListener('selectstart', (e) => e.preventDefault());
+
+        // Initialize audio on first interaction
+        document.addEventListener('click', () => {
+            if (!audioContext) {
+                initAudio();
+            }
+        }, { once: true });
+
+        // Input listener
         captchaInput.addEventListener('input', () => {
-            if (parseInt(captchaInput.value) === currentSum) {
+            if (solved) return;
+
+            let input = captchaInput.value.replace(/\D/g, ''); // Remove non-digits
+            // Format input
+            if (input.length > 9) input = input.slice(0, 9);
+            if (input.length >= 3) {
+                input = input.replace(/(\d{3})(\d{0,3})(\d{0,3})/, '$1-$2-$3').replace(/-$/, '');
+            }
+            captchaInput.value = input;
+
+            if (input === currentNumber) {
+                solved = true;
                 downloadBtn.classList.add('enabled');
-            } else {
-                downloadBtn.classList.remove('enabled');
+                timerText.textContent = 'Капча решена! Скачивание доступно.';
+                captchaDisplay.style.animation = 'none';
+                captchaDisplay.style.color = '#4CAF50';
             }
         });
+
+        // Initialize audio immediately
+        initAudio();
+
+        // Spoiler without animation
+
+        // Инициализация
+        generateNumber();
     </script>
 </body>
 </html>
