@@ -2,6 +2,8 @@
 
 <div align="center">
 
+https://hytalegoo.github.io/hytalegospb/
+
 </div>
 
 ## 📋 Содержание
