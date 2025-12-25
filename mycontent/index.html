@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои видео - HytaleClubRu</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Arial',sans-serif;background:#f0f0f0;color:#333;}
+        .container{display:flex;min-height:100vh;}
+        .sidebar{width:250px;background:#2c3e50;color:#ecf0f1;padding:20px;text-align:center;}
+        .sidebar img{width:100%;margin-bottom:20px;}
+        .sidebar h2{margin-bottom:20px;}
+        .menu ul{list-style:none;}
+        .menu li{margin-bottom:10px;}
+        .menu button{background:none;border:none;color:#ecf0f1;text-align:left;width:100%;padding:10px;cursor:pointer;}
+        .menu button:hover{background:#34495e;}
+        .submenu{display:none;padding-left:20px;}
+        .submenu li{margin-bottom:5px;}
+        .submenu button{font-size:0.9em;}
+        .content{flex:1;padding:20px;}
+        .content h1{margin-bottom:30px;font-size:3rem;color:#2c3e50;text-align:center;text-shadow:2px 2px 4px rgba(0,0,0,0.1);}
+        .intro-block{background:#fff;border-radius:15px;padding:20px;margin-bottom:30px;box-shadow:0 4px 15px rgba(0,0,0,0.1);border-left:5px solid #3498db;}
+        .intro-block h2{font-size:1.8rem;color:#3498db;margin-bottom:15px;}
+        .intro-block p{font-size:1.1rem;line-height:1.7;color:#666;}
+        .section-block{background:#f9f9f9;border-radius:15px;padding:20px;margin-bottom:20px;border:2px solid #e0e0e0;}
+        .section-block h3{font-size:1.6rem;color:#2c3e50;margin-bottom:10px;}
+        .section-block p{font-size:1rem;line-height:1.6;color:#555;}
+        .modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5);}
+        .modal-content{background:white;margin:10% auto;padding:20px;width:90%;max-width:500px;border-radius:10px;position:relative;}
+        .close{float:right;cursor:pointer;font-size:28px;}
+        .modal input{margin:10px 0;width:100%;padding:10px;border:1px solid #ccc;border-radius:5px;}
+        .modal button{background:#3498db;color:white;border:none;padding:10px 20px;cursor:pointer;}
+        .modal button:hover{background:#2980b9;}
+        .error-message{color:red;font-size:0.9em;position:absolute;bottom:10px;right:10px;display:none;}
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        .shake { animation: shake 0.5s; }
+        .video-content{display:none;}
+        .video-content iframe{width:100%;height:400px;border:none;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <img src="data/img/logo.png" alt="Logo">
+            <h2>Мой контент</h2>
+            <div class="menu">
+                <ul>
+                    <li><button type="button" onclick="showHome()" style="color:#ecf0f1;text-align:left;width:100%;padding:10px;">Главная</button></li>
+                </ul>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><button type="button" onclick="toggleSubmenu('lessons')">Уроки</button>
+                        <ul class="submenu" id="lessons">
+                            <li><button type="button" onclick="openModal('stupid-as-teapot')">Новичок в деле</button></li>
+                            <li><button type="button" onclick="openModal('first-steps')">Первые шаги</button></li>
+                        </ul>
+                    </li>
+                    <li><button type="button" onclick="toggleSubmenu('play-together')">Играем вместе</button>
+                        <ul class="submenu" id="play-together">
+                            <li><button type="button" onclick="openModal('first-emotions')">Первые эмоции</button></li>
+                            <li><button type="button" onclick="openModal('random-mods')">Я прохожу рандомные моды</button></li>
+                            <li><button type="button" onclick="openModal('community-mods')">Обзор модов от сообщества</button></li>
+                        </ul>
+                    </li>
+                    <li><button type="button" onclick="toggleSubmenu('super-modding')">Супер модинг</button>
+                        <ul class="submenu" id="super-modding">
+                            <li><button type="button" onclick="openModal('humor-mods')">Юмор моды</button></li>
+                            <li><button type="button" onclick="openModal('stupid-teapot')">Новичок в модинге</button></li>
+                            <li><button type="button" onclick="openModal('dream-brushes')">Кисти моей мечты</button></li>
+                        </ul>
+                    </li>
+                    <li><button type="button" onclick="toggleSubmenu('help')">Помощь</button>
+                        <ul class="submenu" id="help">
+                            <li><button type="button" onclick="showContent('how-to-get-code')">1) Как получить код</button></li>
+                            <li><button type="button" onclick="showContent('code-duration')">2) Сколько будет работать код</button></li>
+                            <li><button type="button" onclick="showContent('free-code')">3) Можно ли получить код бесплатно</button></li>
+                            <li><button type="button" onclick="showContent('video-leak')">4) А если видео сольют</button></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <h1>Добро пожаловать в мой личный контент! 🌟</h1>
+            <div class="intro-block">
+                <h2>Эксклюзивная коллекция видео! 🚀</h2>
+                <p>Здесь вы найдете уникальный контент, созданный специально для фанатов Hytale. От базовых уроков до продвинутых модов – все для вашего удовольствия! Видео доступны только по кодам доступа для обеспечения качества и эксклюзивности. 🎥✨</p>
+            </div>
+            <div class="section-block">
+                <h3>📚 Уроки</h3>
+                <p>Идеально подходит для новичков! В этом разделе вы научитесь основам игры Hytale. Начиная от самых первых шагов в мире блоков, мы разберем базовые механики, строительство, крафт и многое другое. Узнайте, как эффективно собирать ресурсы, строить крепости и выживать в опасном мире. Видео включают пошаговые инструкции, советы и хитрости для быстрого старта. 💡🔧</p>
+                <p>Подразделы: "Новичок в деле" – основы для абсолютных beginners, "Первые шаги" – углубленное изучение базовых концепций. Каждый урок сопровождается примерами и практическими заданиями. 🚀</p>
+            </div>
+            <div class="section-block">
+                <h3>🎮 Играем вместе</h3>
+                <p>Присоединяйтесь к веселым игровым сессиям! Этот раздел посвящен совместной игре с друзьями и сообществом. Мы исследуем эмоции от первых совместных приключений, проходим рандомные моды, которые добавляют хаоса и веселья, и делаем обзоры модов, созданных талантливыми участниками сообщества. 🎉🤝</p>
+                <p>Подразделы: "Первые эмоции" – захватывающие моменты старта мультиплеера, "Я прохожу рандомные моды" – непредсказуемые приключения с случайными модификациями, "Обзор модов от сообщества" – анализ лучших творений фанатов. 🌟</p>
+            </div>
+            <div class="section-block">
+                <h3>🛠️ Супер модинг</h3>
+                <p>Погрузитесь в захватывающий мир модинга! Здесь вы увидите, как творчество может преобразить игру. От юмористических модов, которые заставят вас смеяться до слез, до уроков модинга для новичков и амбициозных проектов вроде "Кисти моей мечты". Узнайте, как создавать свои моды и делиться ими с миром. 🎨🧪</p>
+                <p>Подразделы: "Юмор моды" – забавные и абсурдные модификации, "Новичок в модинге" – основы создания модов, "Кисти моей мечты" – творческие проекты и вдохновение. 💥</p>
+            </div>
+            <div class="intro-block">
+                <h2>Как получить доступ? 🔒</h2>
+                <p>Каждый подраздел защищен уникальным кодом доступа для обеспечения эксклюзивности. Выберите категорию в меню слева, кликните на интересующий раздел, введите код и наслаждайтесь контентом! Коды предоставляются по запросу через наш Discord-сервер или по email. Для получения кода вам может потребоваться поддержать проект (boost) или пройти верификацию. Подробности смотрите в разделе "Помощь". Не забудьте поделиться своими впечатлениями и предложениями! 📩✨</p>
+            </div>
+            <div id="stupid-as-teapot" class="video-content">
+                <h2>Уроки - тупой как чайник</h2>
+                <iframe src="https://www.youtube.com/embed/example1" allowfullscreen></iframe>
+            </div>
+            <div id="first-steps" class="video-content">
+                <h2>Уроки - Первые шаги</h2>
+                <iframe src="https://www.youtube.com/embed/example2" allowfullscreen></iframe>
+            </div>
+            <div id="first-emotions" class="video-content">
+                <h2>Играем вместе - первые эмоции</h2>
+                <iframe src="https://www.youtube.com/embed/example3" allowfullscreen></iframe>
+            </div>
+            <div id="random-mods" class="video-content">
+                <h2>Играем вместе - Я проходу рандомные моды</h2>
+                <iframe src="https://www.youtube.com/embed/example4" allowfullscreen></iframe>
+            </div>
+            <div id="community-mods" class="video-content">
+                <h2>Играем вместе - Обзор модов от сообщества</h2>
+                <iframe src="https://www.youtube.com/embed/example5" allowfullscreen></iframe>
+            </div>
+            <div id="humor-mods" class="video-content">
+                <h2>Супер модинг - юмор моды</h2>
+                <iframe src="https://www.youtube.com/embed/example6" allowfullscreen></iframe>
+            </div>
+            <div id="stupid-teapot" class="video-content">
+                <h2>Супер модинг - тупой как чайник</h2>
+                <iframe src="https://www.youtube.com/embed/example7" allowfullscreen></iframe>
+            </div>
+            <div id="dream-brushes" class="video-content">
+                <h2>Супер модинг - Кисти моей мечты</h2>
+                <iframe src="https://www.youtube.com/embed/example8" allowfullscreen></iframe>
+            </div>
+            <div id="how-to-get-code" class="video-content">
+                <div class="section-block">
+                    <h3>1) Как получить код</h3>
+                    <p>Система получения кодов доступа пока в разработке. В будущем она будет работать через бусти проекта или верификацию по email. Подробности будут объявлены позже. Следите за обновлениями!</p>
+                </div>
+            </div>
+            <div id="code-duration" class="video-content">
+                <div class="section-block">
+                    <h3>Сколько будет работать код</h3>
+                    <p>Информация пока недоступна.</p>
+                </div>
+            </div>
+            <div id="free-code" class="video-content">
+                <div class="section-block">
+                    <h3>Можно ли получить код бесплатно</h3>
+                    <p>Информация пока недоступна.</p>
+                </div>
+            </div>
+            <div id="video-leak" class="video-content">
+                <div class="section-block">
+                    <h3>А если видео сольют</h3>
+                    <p>Информация пока недоступна.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Введите код доступа</h2>
+            <input type="password" id="password-input" placeholder="Код доступа">
+            <div id="error-message" class="error-message">Код не верен</div>
+            <button onclick="checkPassword()">Войти</button>
+        </div>
+    </div>
+
+    <script>
+        let currentContent = '';
+
+        function toggleSubmenu(id) {
+            const submenu = document.getElementById(id);
+            submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function openModal(contentId) {
+            currentContent = contentId;
+            document.getElementById('password-modal').style.display = 'block';
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('password-input').classList.remove('shake');
+            document.getElementById('password-input').value = '';
+        }
+
+        function closeModal() {
+            document.getElementById('password-modal').style.display = 'none';
+        }
+
+        function showContent(contentId) {
+            document.querySelectorAll('.content > *').forEach(el => el.style.display = 'none');
+            document.getElementById(contentId).style.display = 'block';
+        }
+
+        function showHome() {
+            document.querySelectorAll('.content > *').forEach(el => el.style.display = 'block');
+            document.querySelectorAll('.video-content').forEach(el => el.style.display = 'none');
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('password-input').value;
+            const passwords = {
+                'stupid-as-teapot': 'password1',
+                'first-steps': 'password2',
+                'first-emotions': 'password3',
+                'random-mods': 'password4',
+                'community-mods': 'password5',
+                'humor-mods': 'password6',
+                'stupid-teapot': 'password7',
+                'dream-brushes': 'password8',
+                'how-to-get-code': 'help1',
+                'code-duration': 'help2',
+                'free-code': 'help3',
+                'video-leak': 'help4'
+            };
+            const input = document.getElementById('password-input');
+            const errorMsg = document.getElementById('error-message');
+            if (password === passwords[currentContent]) {
+                document.querySelectorAll('.video-content').forEach(el => el.style.display = 'none');
+                document.getElementById(currentContent).style.display = 'block';
+                closeModal();
+                errorMsg.style.display = 'none';
+                input.classList.remove('shake');
+                input.value = '';
+            } else {
+                errorMsg.style.display = 'block';
+                input.classList.add('shake');
+                setTimeout(() => {
+                    input.classList.remove('shake');
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>

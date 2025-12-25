@@ -34,7 +34,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('img/sr/001.jpg') center/cover no-repeat;
+            background: url('data/img/sr/001.jpg') center/cover no-repeat;
             opacity: 0.1;
             z-index: -1;
         }
@@ -60,10 +60,7 @@
             color: #ffff00; /* золотой для чисел */
         }
 
-        /* Второй таймер */
-        .release-timer {
-            /* No animation */
-        }
+
 
         /* Анимация для чисел в таймерах */
         .timer span.flip {
@@ -134,7 +131,7 @@
 </head>
 <body>
     <header class="header">
-        <div class="logo"><img src="img/logo.png" alt="Hytale Logo"></div>
+        <div class="logo"><img src="data/img/logo.png" alt="Hytale Logo"></div>
         <nav>
             <ul>
                 <li><a href="#home">Главная</a></li>
@@ -142,7 +139,8 @@
                 <li><a href="#screenshots">Скриншоты</a></li>
                 <li><a href="#videos">Видео</a></li>
                 <li><a href="mods/index.html">Моды</a></li>
-                <li><a href="#download">Скачать</a></li>
+                <li><a href="mycontent/index.html">Мой контент</a></li>
+                <li><a href="#download">Скачать игру</a></li>
 
             </ul>
         </nav>
@@ -159,7 +157,7 @@
             <button class="cta">Узнать больше</button>
         </div>
         <div class="image">
-            <img src="img/logo.png" alt="Hytale Logo">
+            <img src="data/img/logo.png" alt="Hytale Logo">
         </div>
     </section>
 
@@ -349,15 +347,15 @@
     <section id="screenshots" class="screenshots">
         <h2>Скриншоты игры</h2>
         <div class="gallery">
-            <img src="img/sr/001.jpg" alt="Hytale Screenshot 1" class="gallery-img" data-src="img/sr/001.jpg" />
-            <img src="img/sr/002.jpg" alt="Hytale Screenshot 2" class="gallery-img" data-src="img/sr/002.jpg" />
-            <img src="img/sr/003.jpg" alt="Hytale Screenshot 3" class="gallery-img" data-src="img/sr/003.jpg" />
-            <img src="img/sr/004.jpg" alt="Hytale Screenshot 4" class="gallery-img" data-src="img/sr/004.jpg" />
-            <img src="img/sr/005.jpg" alt="Hytale Screenshot 5" class="gallery-img" data-src="img/sr/005.jpg" />
-            <img src="img/sr/006.jpg" alt="Hytale Screenshot 6" class="gallery-img" data-src="img/sr/006.jpg" />
-            <img src="img/sr/007.jpg" alt="Hytale Screenshot 7" class="gallery-img" data-src="img/sr/007.jpg" />
-            <img src="img/sr/008.jpg" alt="Hytale Screenshot 8" class="gallery-img" data-src="img/sr/008.jpg" />
-            <img src="img/sr/009.jpg" alt="Hytale Screenshot 9" class="gallery-img" data-src="img/sr/009.jpg" />
+            <img src="data/img/sr/001.jpg" alt="Hytale Screenshot 1" class="gallery-img" data-src="data/img/sr/001.jpg" />
+            <img src="data/img/sr/002.jpg" alt="Hytale Screenshot 2" class="gallery-img" data-src="data/img/sr/002.jpg" />
+            <img src="data/img/sr/003.jpg" alt="Hytale Screenshot 3" class="gallery-img" data-src="data/img/sr/003.jpg" />
+            <img src="data/img/sr/004.jpg" alt="Hytale Screenshot 4" class="gallery-img" data-src="data/img/sr/004.jpg" />
+            <img src="data/img/sr/005.jpg" alt="Hytale Screenshot 5" class="gallery-img" data-src="data/img/sr/005.jpg" />
+            <img src="data/img/sr/006.jpg" alt="Hytale Screenshot 6" class="gallery-img" data-src="data/img/sr/006.jpg" />
+            <img src="data/img/sr/007.jpg" alt="Hytale Screenshot 7" class="gallery-img" data-src="data/img/sr/007.jpg" />
+            <img src="data/img/sr/008.jpg" alt="Hytale Screenshot 8" class="gallery-img" data-src="data/img/sr/008.jpg" />
+            <img src="data/img/sr/009.jpg" alt="Hytale Screenshot 9" class="gallery-img" data-src="data/img/sr/009.jpg" />
         </div>
         <div id="modal" class="modal">
             <span class="close">&times;</span>
@@ -368,7 +366,7 @@
     <section id="videos" class="videos">
         <h2>Видео об игре</h2>
         <video id="local-video" controls width="600" height="338">
-            <source src="video/hytalestart.mp4" type="video/mp4">
+            <source src="data/video/hytalestart.mp4" type="video/mp4">
             Ваш браузер не поддерживает видео.
         </video>
         <p>Посмотрите официальный трейлер Hytale и погрузитесь в атмосферу!</p>
@@ -387,7 +385,7 @@
                         <div class="card-icon large">🚀</div>
                         <h3>Лаунчер Hytale</h3>
                         <p>Рекомендуемый способ. Автоматические обновления и простая установка.</p>
-                        <button class="download-btn primary" id="download-launcher-btn">Скачать лаунчер</button>
+                        <a href="download/download.html" class="download-btn primary">Скачать лаунчер</a>
                     </div>
                 </div>
                 <div id="direct" class="tab-pane">
