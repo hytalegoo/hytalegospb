@@ -2,10 +2,6 @@
 
 <div align="center">
 
-[![Сайт](https://img.shields.io/badge/🌐%20Сайт-Посетить-blue?style=for-the-badge&logo=github)](https://hytalegoo.github.io/hytalegospb/)
-[![Discord](https://img.shields.io/badge/💬%20Discord-Присоединиться-blue?style=for-the-badge&logo=discord)](https://discord.gg/WdNEmy2DGM)
-[![GitHub](https://img.shields.io/badge/📁%20GitHub-Код-blue?style=for-the-badge&logo=github)](https://github.com/hytalegoo/hytalegospb)
-
 </div>
 
 ## 📋 Содержание
