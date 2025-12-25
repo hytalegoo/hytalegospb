@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Моды Hytale - HytaleClubRu</title>
+    <link rel="stylesheet" href="menu.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html,body{height:100%;font-family:'Roboto',sans-serif;color:#e0e0e0;}
+        a{text-decoration:none;color:inherit;}
+        ul{list-style:none;}
+        button{cursor:pointer;border:none;font-family:inherit;}
+
+        body{background: url('img/fon.png') center/cover no-repeat fixed; background-color:#212121;}
+
+        .sidebar{position:static;width:300px;background:#1a1a1a;
+                box-shadow:2px 0 10px rgba(0,0,0,0.5);padding:20px;margin-right:20px;}
+        .sidebar h2{color:#3498db;margin-bottom:20px;}
+        .sidebar ul li{margin-bottom:10px;}
+        .sidebar button{background:none;color:#e0e0e0;border:1px solid #555;padding:10px;width:100%;
+                      text-align:left;cursor:pointer;border-radius:5px;}
+        .sidebar button:hover{background:#333;}
+        .sidebar button.active{background:#3498db;color:white;}
+
+        .mods-header{
+            text-align:center;padding:4rem 2rem;background:rgba(30,60,114,0.8);backdrop-filter:blur(10px);
+            color:#fff;position:relative;overflow:hidden;border-radius:20px;margin:2rem auto;max-width:800px;
+        }
+        .mods-header h1{font-size:3rem;margin-bottom:1rem;text-shadow:3px 3px 6px rgba(0,0,0,0.7);
+                        animation:fadeInUp 1s ease;}
+        .mods-header p{font-size:1.3rem;color:#e0e0e0;text-shadow:1px 1px 2px rgba(0,0,0,0.5);
+                      animation:fadeInUp 1.5s ease;}
+
+        @keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+        .mods-container{padding:3rem 2rem;max-width:1000px;margin:0 auto;}
+        .mods-section{display:flex;align-items:flex-start;}
+        .mods-main{flex:1;background:rgba(0,0,0,0.5);border-radius:15px;padding:2rem;}
+        .view-controls{display:flex;align-items:center;margin-bottom:2rem;}
+        .view-controls h3{color:#3498db;margin-right:1rem;font-size:1.5rem;}
+        .view-controls button{background:#333;color:#e0e0e0;border:2px solid #555;border-radius:10px;
+                              padding:0.5rem;width:60px;height:60px;margin:0 0.5rem;cursor:pointer;font-size:1.5rem;}
+        .view-controls button:hover{background:#555;border-color:#3498db;}
+        .view-controls button.active{background:#3498db;border-color:#2980b9;}
+        .mods-grid{background:rgba(0,0,0,0.5);border-radius:15px;padding:2rem;margin:0 auto;max-width:1200px;}
+        .mods-grid.list-view{display:block;}
+        .mods-grid.grid-view{display:grid;grid-template-columns:repeat(3, 1fr);gap:1.5rem;}
+        .mod-card{background:#333;border-radius:10px;padding:1.5rem;text-align:center;width:100%;max-width:250px;margin:0 auto;
+                  box-shadow:0 4px 15px rgba(0,0,0,0.5);transition:transform 0.3s,box-shadow 0.3s;cursor:pointer;}
+        .mods-grid.list-view .mod-card{display:flex;margin-bottom:1rem;width:100%;max-width:none;}
+        .mod-placeholder{font-size:2rem;width:60px;height:60px;display:flex;align-items:center;justify-content:center;margin-right:1rem;border:2px dashed #555;border-radius:10px;}
+        .mods-grid.grid-view .mod-placeholder{display:none;}
+        .mods-grid.list-view .mod-card .content{display:flex;flex-direction:column;}
+        .mods-grid.list-view .mod-card h3{margin-bottom:0.5rem;text-align:left;}
+        .mods-grid.list-view .mod-card p{margin:0;text-align:left;}
+        .mod-card:hover{transform:translateY(-5px);box-shadow:0 8px 25px rgba(52,152,219,0.3);}
+        .mod-icon{width:60px;height:60px;border-radius:10px;margin-bottom:1rem;object-fit:cover;}
+        .mod-card h3{color:#3498db;margin-bottom:0.5rem;font-size:1.3rem;}
+        .mod-card p{color:#e0e0e0;font-size:0.8rem;line-height:1.5;}
+
+        .modal{display:none;position:fixed;z-index:2000;left:0;top:0;width:100%;height:100%;
+               background:rgba(0,0,0,0.8);backdrop-filter:blur(5px);animation:modalFadeIn 0.3s ease;}
+        .modal-content{background:#1a1a1a;margin:10% auto;padding:0;border-radius:15px;
+                      width:80%;max-width:600px;position:relative;box-shadow:0 10px 30px rgba(0,0,0,0.5);
+                      animation:modalScaleIn 0.3s ease;}
+        .modal-header{background:linear-gradient(45deg,#3498db,#2980b9);padding:1.5rem;border-radius:15px 15px 0 0;text-align:center;}
+        .modal-header h2{color:white;margin:0;font-size:2rem;}
+        .close-modal{position:absolute;top:10px;right:20px;font-size:2rem;cursor:pointer;color:#e0e0e0;z-index:1;}
+        .modal-body{padding:2rem;}
+        .modal-description{background:#000;border:2px solid #555;border-top:4px solid #fff;padding:1rem;border-radius:10px;margin-bottom:1rem;color:#e0e0e0;}
+        .modal-screenshots{display:flex;justify-content:space-around;margin:1rem 0;}
+        .screenshot{font-size:3rem;}
+        .modal-author{text-align:center;margin:1rem 0;color:#3498db;font-weight:bold;}
+        .modal-download{background:linear-gradient(45deg,#3498db,#2980b9);color:white;padding:1rem 2rem;
+                       border-radius:10px;display:block;margin:2rem auto;border:none;
+                       transition:transform 0.3s;}
+        .modal-download:hover{transform:scale(1.05);}
+
+        @keyframes modalFadeIn{from{opacity:0;}to{opacity:1;}}
+        @keyframes modalScaleIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}
+
+        @media (max-width:768px){.mods-grid{grid-template-columns:1fr;}}
+    </style>
+</head>
+<body>
+
+
+    <section class="mods-header">
+        <h1>Раздел модов</h1>
+        <p>Исследуйте разнообразие модов для Hytale и расширьте свой игровой опыт!</p>
+    </section>
+
+    <section id="mods" class="mods-container">
+        <div class="mods-section">
+            <div class="sidebar" id="sidebar">
+                <ul>
+                    <li><button class="filter-btn active" data-category="all">Все</button></li>
+                    <li><button class="filter-btn" data-category="graphics">Графика</button></li>
+                    <li><button class="filter-btn" data-category="items">Предметы</button></li>
+                    <li><button class="filter-btn" data-category="biomes">Биомы</button></li>
+                    <li><button class="filter-btn" data-category="sound">Звук</button></li>
+                    <li><button class="filter-btn" data-category="minigames">Мини-игры</button></li>
+                    <li><button class="filter-btn" data-category="multiplayer">Мультиплеер</button></li>
+                    <li><button class="filter-btn" data-category="packs">Пакеты</button></li>
+                </ul>
+            </div>
+            <div class="mods-main">
+                <div class="view-controls">
+                    <button id="list-view-btn" class="active">☰</button>
+                    <button id="grid-view-btn">□□□</button>
+                </div>
+                <div class="mods-grid list-view">
+            <div class="mod-card" data-category="graphics">
+                <div class="mod-placeholder">🖼️</div>
+                <div class="content">
+                    <h3>Мод 1</h3>
+                    <p>Описание первого мода. Добавляет новые возможности в игру.</p>
+                </div>
+            </div>
+            <div class="mod-card" data-category="graphics">
+                <div class="mod-placeholder">🖼️</div>
+                <div class="content">
+                    <h3>Мод 2</h3>
+                    <p>Описание второго мода. Улучшает графику и эффекты.</p>
+                </div>
+            </div>
+            <div class="mod-card" data-category="items">
+                <div class="mod-placeholder">🖼️</div>
+                <div class="content">
+                    <h3>Мод 3</h3>
+                    <p>Описание третьего мода. Добавляет новые предметы и рецепты.</p>
+                </div>
+            </div>
+            <div class="mod-card" data-category="gameplay">
+                <div class="mod-placeholder">🖼️</div>
+                <div class="content">
+                    <h3>Мод 4</h3>
+                    <p>Описание четвертого мода. Изменяет геймплей.</p>
+                </div>
+            </div>
+            <div class="mod-card" data-category="biomes">
+                <div class="mod-placeholder">🖼️</div>
+                <div class="content">
+                    <h3>Мод 5</h3>
+                    <p>Описание пятого мода. Добавляет новые биомы.</p>
+                </div>
+            </div>
+            <div class="mod-card" data-category="sound">
+                <div class="mod-placeholder">🖼️</div>
+                <div class="content">
+                    <h3>Мод 6</h3>
+                    <p>Описание шестого мода. Улучшает звук и музыку.</p>
+                </div>
+            </div>
+            <div class="mod-card" data-category="minigames">
+                <div class="mod-placeholder">🖼️</div>
+                <div class="content">
+                    <h3>Мод 7</h3>
+                    <p>Описание седьмого мода. Добавляет мини-игры.</p>
+                </div>
+            </div>
+            <div class="mod-card" data-category="multiplayer">
+                <div class="mod-placeholder">🖼️</div>
+                <div class="content">
+                    <h3>Мод 8</h3>
+                    <p>Описание восьмого мода. Расширяет мультиплеер.</p>
+                </div>
+            </div>
+            <div class="mod-card" data-category="packs">
+                <div class="mod-placeholder">🖼️</div>
+                <div class="content">
+                    <h3>Мод 9</h3>
+                    <p>Описание девятого мода. Полный пакет дополнений.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="mod-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+            </div>
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="modal-screenshots">
+                    <span class="screenshot">🖼️</span>
+                    <span class="screenshot">🖼️</span>
+                    <span class="screenshot">🖼️</span>
+                </div>
+                <p id="modal-description" class="modal-description"></p>
+                <p class="modal-author">Автор: HGO</p>
+                <button class="modal-download">Скачать</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const modCards = document.querySelectorAll('.mod-card');
+        const listViewBtn = document.getElementById('list-view-btn');
+        const gridViewBtn = document.getElementById('grid-view-btn');
+
+        listViewBtn.addEventListener('click', () => {
+            const modsGrid = document.querySelector('.mods-grid');
+            modsGrid.classList.remove('grid-view');
+            modsGrid.classList.add('list-view');
+            listViewBtn.classList.add('active');
+            gridViewBtn.classList.remove('active');
+        });
+
+        gridViewBtn.addEventListener('click', () => {
+            const modsGrid = document.querySelector('.mods-grid');
+            modsGrid.classList.remove('list-view');
+            modsGrid.classList.add('grid-view');
+            gridViewBtn.classList.add('active');
+            listViewBtn.classList.remove('active');
+        });
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const category = btn.dataset.category;
+                modCards.forEach(card => {
+                    if (category === 'all' || card.dataset.category === category) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        modCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('h3').textContent;
+                const desc = card.querySelector('p').textContent;
+                document.getElementById('modal-title').textContent = title;
+                document.getElementById('modal-description').textContent = desc;
+                document.getElementById('mod-modal').style.display = 'block';
+            });
+        });
+
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            document.getElementById('mod-modal').style.display = 'none';
+        });
+
+        document.getElementById('mod-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('mod-modal')) {
+                document.getElementById('mod-modal').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
